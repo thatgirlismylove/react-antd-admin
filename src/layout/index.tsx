@@ -1,8 +1,8 @@
 import React from 'react';
 import {Layout, theme} from 'antd';
-import AntdComponent from "../pages/antd";
 import SideBar from "./side-bar";
 import MyHeader from "./header";
+import {Outlet} from "react-router";
 
 const {Content} = Layout;
 
@@ -26,7 +26,7 @@ const App: React.FC = () => {
                     }}
                 >
                     {/* antd 组件使用演示 */}
-                    <AntdComponent></AntdComponent>
+                    <Outlet />
                 </Content>
             </Layout>
         </Layout>

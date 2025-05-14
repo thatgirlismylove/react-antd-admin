@@ -1,36 +1,45 @@
-import {Layout, Menu} from "antd";
+import {Layout, Menu, type MenuProps} from "antd";
 import {UploadOutlined, UserOutlined, VideoCameraOutlined} from "@ant-design/icons";
-import React from "react";
+import React, {useState} from "react";
 import {appCollapsed} from "@/store";
-import { useAtom } from 'jotai';
+import {useAtom} from 'jotai';
+import {useNavigate} from "react-router";
 
 const {Sider} = Layout;
 
-const SideBar:React.FC = ()=>  {
+const SideBar: React.FC = () => {
+
+    const navigate = useNavigate()
 
     const [collapsed] = useAtom(appCollapsed);
+    const [current, setCurrent] = useState('mail');
+    const handleClick: MenuProps['onClick'] = (e) => {
+        setCurrent(e.key)
+        navigate(e.key)
+    }
 
     return (
         <Sider trigger={null} collapsible collapsed={collapsed}>
             <div className="demo-logo-vertical"/>
             <Menu
                 mode="inline"
-                defaultSelectedKeys={['1']}
+                selectedKeys={[current]}
+                onClick={handleClick}
                 items={[
                     {
-                        key: '1',
+                        key: '/',
                         icon: <UserOutlined/>,
-                        label: 'nav 1',
+                        label: 'Home',
                     },
                     {
-                        key: '2',
+                        key: '/antd',
                         icon: <VideoCameraOutlined/>,
-                        label: 'nav 2',
+                        label: 'Antd Components',
                     },
                     {
-                        key: '3',
+                        key: '/orderList',
                         icon: <UploadOutlined/>,
-                        label: 'nav 3',
+                        label: 'Order List',
                     },
                 ]}
             />

@@ -11,7 +11,7 @@ function AntdComponent() {
 
     return (
         <div className={'w-full'}>
-            <h1 className={'text-red'}>hfgjfhdgd</h1>
+            <h1 className={'text-red'}>antd components demo</h1>
             <Button type="primary" onClick={showMessage}>
                 Open message
             </Button>

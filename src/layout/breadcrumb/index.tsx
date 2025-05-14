@@ -1,28 +1,27 @@
-import {Breadcrumb} from 'antd';
-import {useMatches} from "react-router";
+import { Breadcrumb } from "antd";
+import { Link, useMatches } from "react-router";
 
-function MyBreadcrumb() {
-    const matches = useMatches()
-    console.log(matches)
+function itemRender(currentRoute, items) {
+  const isLast = currentRoute?.path === items[items.length - 1]?.path;
 
-    return (
-        <Breadcrumb
-            items={[
-                {
-                    title: 'Home',
-                },
-                {
-                    title: <a href="">Application Center</a>,
-                },
-                {
-                    title: <a href="">Application List</a>,
-                },
-                {
-                    title: 'An Application',
-                },
-            ]}
-        />
-    )
+  return isLast ? (
+    <span>{currentRoute.title}</span>
+  ) : (
+    <Link to={currentRoute.path}>{currentRoute.title}</Link>
+  );
 }
 
-export default MyBreadcrumb
+function MyBreadcrumb() {
+  const matches = useMatches();
+  
+  const items = matches.map((item) => {
+    return {
+      title: item.handle?.title,
+      path: item.pathname,
+    };
+  });
+
+  return <Breadcrumb items={items} itemRender={itemRender} />;
+}
+
+export default MyBreadcrumb;

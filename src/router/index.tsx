@@ -1,14 +1,15 @@
 import { createBrowserRouter, redirect } from "react-router";
-import App from "../App.tsx";
 import orderList from "@/pages/order/index.tsx";
 import { getToken } from "@/utils/storage.ts";
 import Login from "@/pages/login/index.tsx";
+import Dashboard from "@/pages/dashboard";
+import layout from "@/layout";
 
 // 路由权限校验
 export function authLoader() {
-  const token = getToken()
+  const token = getToken();
   if (!token) {
-    return redirect('/login');
+    return redirect("/login");
   }
   return null;
 }
@@ -16,23 +17,44 @@ export function authLoader() {
 const router = createBrowserRouter([
   {
     path: "/",
-    Component: App,
-  },
-  {
-    path: '/login',
-    Component: Login
-  },
-  {
-    path: "/orderList",
+    Component: layout,
     handle: {
-      // 定义路由信息
-      meta: {
-        title: 'Order List'
-        // some props
-      }
+      title: "Home",
     },
-    loader: authLoader,
-    Component: orderList,
+    children: [
+      {
+        index: true,
+        Component: Dashboard,
+        handle: {
+            title: 'Dashboard'
+        }
+      },
+      {
+        path: "/antd",
+        // 路由懒加载
+        lazy: async () => {
+          const module = await import("@/pages/antd");
+          return { Component: module.default };
+        },
+        handle: {
+          title: "Antd Components",
+        },
+      },
+      {
+        path: "/orderList",
+        handle: {
+          // 定义路由信息
+          title: "Order List",
+          // some props
+        },
+        loader: authLoader,
+        Component: orderList,
+      },
+    ],
+  },
+  {
+    path: "/login",
+    Component: Login,
   },
 ]);
 
