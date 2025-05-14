@@ -4,7 +4,7 @@ import {
   UserOutlined,
   VideoCameraOutlined,
 } from "@ant-design/icons";
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { appCollapsed } from "@/store";
 import { useAtom } from "jotai";
 import { useLocation, useMatches, useNavigate } from "react-router";

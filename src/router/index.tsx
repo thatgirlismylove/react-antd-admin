@@ -3,7 +3,7 @@ import orderList from "@/pages/order/index.tsx";
 import { getToken } from "@/utils/storage.ts";
 import Login from "@/pages/login/index.tsx";
 import Dashboard from "@/pages/dashboard";
-import layout from "@/layout";
+import App from "@/App.tsx"
 
 // 路由权限校验
 export function authLoader() {
@@ -17,7 +17,7 @@ export function authLoader() {
 const router = createBrowserRouter([
   {
     path: "/",
-    Component: layout,
+    Component: App,
     handle: {
       title: "Home",
     },

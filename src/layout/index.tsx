@@ -3,10 +3,9 @@ import {Layout, theme} from 'antd';
 import SideBar from "./side-bar";
 import MyHeader from "./header";
 import {Outlet} from "react-router";
-
 const {Content} = Layout;
 
-const App: React.FC = () => {
+const AppLayout: React.FC = () => {
     const {
         token: {colorBgContainer, borderRadiusLG},
     } = theme.useToken();
@@ -33,4 +32,4 @@ const App: React.FC = () => {
     );
 };
 
-export default App;
+export default AppLayout;

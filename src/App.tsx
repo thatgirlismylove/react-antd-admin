@@ -1,32 +1,27 @@
-import { useNavigate } from "react-router";
-import { setNavigator } from "./router/navigate.ts";
-import { useEffect } from "react";
-import { App, ConfigProvider } from "antd";
+import {ConfigProvider,} from "antd";
 
-import Layout from "./layout/index.tsx";
+import AppLayout from "./layout/index.tsx";
+
+import 'antd/dist/reset.css';
 import "./App.css";
 
-function MyApp() {
-  const navigate = useNavigate();
-  
-  useEffect(() => {
-    setNavigator(navigate);
-  }, [navigate]);
+function App() {
+    return (
+        <ConfigProvider
+            theme={{
+                token: {
+                    // Seed Token，影响范围大
+                    colorPrimary: '#00b96b',
+                    borderRadius: 2,
 
-  return (
-    <ConfigProvider
-      theme={{
-        token: {
-          colorPrimary: "#00b96b",
-          colorBgContainer: "#f6ffed",
-        },
-      }}
-    >
-      <App>
-        <Layout></Layout>
-      </App>
-    </ConfigProvider>
-  );
+                    // 派生变量，影响范围小
+                    colorBgContainer: '#f6ffed',
+                },
+            }}
+        >
+            <AppLayout></AppLayout>
+        </ConfigProvider>
+    );
 }
 
-export default MyApp;
+export default App;
